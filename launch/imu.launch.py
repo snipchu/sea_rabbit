@@ -1,4 +1,5 @@
-
+import launch
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
@@ -7,7 +8,7 @@ def generate_launch_description():
         Node(
             package='bno055',
             executable='bno055',
-            name='imu driver',
+            name='imu_driver',
             parameters=["~/seals_ws/src/bno055/bno055/params/bno055_params.yaml"]
         ),
         Node(
