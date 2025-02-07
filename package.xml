@@ -7,7 +7,9 @@
   <maintainer email="pipandw@gmail.com">bunnyguy</maintainer>
   <license>Apache-2.0</license>
   
-  <exec_depend>ros-imu-bno055</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>bno055</exec_depend>
   <exec_depend>slam_toolbox</exec_depend>
   <exec_depend>rviz2</exec_depend>
   <exec_depend>velodyne</exec_depend>

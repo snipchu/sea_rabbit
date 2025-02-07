@@ -23,6 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'odom_pub = sea_rabbit.odom_pub:main',
         ],
     },
 )
