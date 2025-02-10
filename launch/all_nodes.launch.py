@@ -1,11 +1,12 @@
 import launch
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    pkg_share = FindPackageShare(package='sea_rabbit').find('sea_rabbit')
-    urdf_path = os.path.join(pkg_share, 'src', 'description', 'tuppyurdf.urdf')
+    pkg_share = get_package_share_directory('sea_rabbit')
     return LaunchDescription([
         Node(
             package='bno055',
@@ -18,28 +19,18 @@ def generate_launch_description():
             executable='odom_to_baselink',
             name='odom_to_baselink'
         ),
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2'
+        IncludeLaunchDescription (
+            PythonLaunchDescriptionSource (
+                pkg_share + '/launch/display.launch.py'
+            )
         ),
-        Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('model')])}]
-        ),
-        Node(
-            package='joint_state_publisher',
-            executable='joint_state_publisher',
-            parameters=[{'robot_description': Command(['xacro ', urdf_path])}]
-        ),
-        launch.actions.IncludeLaunchDescription (
-            launch.launch_description_sources.PythonLaunchDescriptionSource (
+        IncludeLaunchDescription (
+            PythonLaunchDescriptionSource (
                 get_package_share_directory('velodyne') + '/launch/velodyne-all-nodes-VLP16-composed-launch.py'
             )
         ),
-        launch.actions.IncludeLaunchDescription (
-            launch.launch_description_sources.PythonLaunchDescriptionSource (
+        IncludeLaunchDescription (
+            PythonLaunchDescriptionSource (
                 get_package_share_directory('slam_toolbox') + '/launch/online_async_launch.py'
             )
         )
