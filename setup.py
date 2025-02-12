@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'odom_to_baselink = sea_rabbit.odom_to_baselink:main',
+            'odom_to_baselink_test = sea_rabbit.odom_to_baselink_test:main',
         ],
     },
 )
